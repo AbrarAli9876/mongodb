@@ -1,0 +1,38 @@
+ 1. Create a database named AD4Sem
+ use AD4Sem
+ 2. Create a collection named book
+ db.createCollection(“book”)
+ 3. Insert documents in the collection book with following fields 
+title, author, publisher, price, n_copies, n_issued
+ Using InsertOne command :
+ db.book.insertOne({title:"C", author: "Kernighan", publisher:"McGraw Hills", 
+price:350, n_copies:10, n_issued:3})
+ Using InsertMany Command :
+ db.book.insertMany([
+ {title:"Python", author: "Guido van Rossum", publisher:"O’Reilly ", 
+price:550, n_copies:15, n_issued:5},
+ {title:"Java", author: "James Gosling", publisher:"Pengun", price:575, 
+n_copies:12, n_issued:6},
+ {title:"Scala", author: "Martin", publisher:"Pengun", price:350, 
+n_copies:20, 
+n_issued:7}
+ ])
+ 4. Change the number of copies of Book titled Scala to 21
+ Using UpdateOne Command :
+ db.book.updateOne({title:"Scala"},{$set : {n_copies:21}})
+ Using UpdateMany Command :
+ db.book.updateMany({publisher:"Pengun"},{$set : {publisher:"Penguin"}})
+ 5. Display all the documents of collection book
+ Using find command :
+ db.book.find()
+Using find and pretty command :
+ db.book.find.pretty()
+ 6. Projection – displaying required attributes or fields in a collections
+ db.book.find({},{title:1}).pretty();
+ db.book.find({},{_id:0,title:1}).pretty();
+ db.book.find({},{_id:0,title:1, author:1}).pretty();
+ 7. Delete documents from collection book
+ Using deleteOne() command :
+ db.book.deleteOne({title:"Python"})
+ Using deleteMany() command :
+ db.book.deleteMany({publisher:"Penguin"
