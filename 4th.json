@@ -1,0 +1,22 @@
+1. Create a collection named “products”"
+ db.products.insertOne({ name: "T-shirt", "brand" : ["Polo, "US]",
+ "variants:" [ { size: "S", price: 150 }, { size: "M", price: 200 } ] }) 
+db.products.insertOne({ name: "T-shirt", brand : ["Louis Phillippe",
+ "India"], variants: [ { size: "S", price: 300}, { size: "M", price: 350},
+ { size: "L", price: 400 } ] }) 
+db.products.insertOne({ name: "Tracks", brand : ["Adidas", "Germany",
+ "Polo"], variants: [ { size: "S", price: 15 }, { size: "M", price: 20 }, { size:
+ "L", price: 25 } ] }) 
+2. Using $ projection operator 
+db.products.find({name:"T-shirt","variants.size":"M"},{"variants.
+ $":1})
+ 3. Using $ slice operator list first brand of T-shirt
+ db.products.find( 
+{ 
+name:"T-shirt" 
+{$slice:1},"variants":0, "_id":0, name:0})
+ 4. Using $elematch list all the products of size “M”
+ }, 
+{"brand":
+ db.products.find({ variants: { $elemMatch: { size: "M" } } , _id:0},
+ {})
