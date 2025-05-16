@@ -1,6 +1,5 @@
- 1. Create a database named AD4Sem
- use AD4Sem
- 2. Create a collection named book
+
+  2. Create a collection named book
  db.createCollection(“book”)
  3. Insert documents in the collection book with following fields 
 title, author, publisher, price, n_copies, n_issued
@@ -35,4 +34,4 @@ Using find and pretty command :
  Using deleteOne() command :
  db.book.deleteOne({title:"Python"})
  Using deleteMany() command :
- db.book.deleteMany({publisher:"Penguin"
+ db.book.deleteMany({publisher:"Penguin"})

@@ -1,0 +1,26 @@
+1. Create a collection by importing from employees.json file
+ mongoimport "employee.json" --jsonArray -d AD4Sem -c employees
+ 2. Using $max operator
+ Find maximum salary given to an employee
+ db.employees.aggregate([ { $group: { _id: null, total: { $max: '$SALARY' } } } ])
+ Find maximum salary after grouping department 
+db.employees.aggregate([ { $group: { _id: '$DEPARTMENT_ID', total: { $max: 
+'$SALARY' } } }])
+ 3. Using $min operator
+ Find minimum salary given to an employee
+ db.employees.aggregate([ { $group: { _id: null,  total: { $min: '$SALARY' } } }])
+ Find minimum salary after grouping department
+ db.employees.aggregate([ { $group: { _id: '$DEPARTMENT_ID',  total: { $min: 
+'$SALARY' } } }])
+ 3. Using $avg operator
+ Find average salary given to an employee
+ db.employees.aggregate([ { $group: { _id: null, averagesal: { $avg: '$SALARY' } } } ])
+ Find average salary after grouping department
+ db.employees.aggregate([ { $group: { _id: '$DEPARTMENT_ID', averagesal: { $avg:
+ '$SALARY' } } }])
+ 4. Using $push operators
+ db.employees.aggregate([{$group:{_id:"$DEPARTMENT_ID", JOB_ID:{$push: 
+"$JOB_ID"}}}]).pretty()
+ 5. Using $addToSet operators
+ db.employees.aggregate([{$group:{_id:"$DEPARTMENT_ID", JOB_ID:{$addToSet: 
+"$JOB_ID"}}}]).pretty()

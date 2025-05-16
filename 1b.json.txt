@@ -1,0 +1,31 @@
+ 1. Load data from “employees.json” into a collection named “employees”. The following has be 
+executed in terminal and not in mongo terminal.
+ mongoimport "/home/acer/KSSEM/employees.json" --jsonArray -d AD4Sem -c employees
+ 2. Using where clause
+ Find firstnames all employees whose JOB_ID = IT_PROG
+ db.employees.find({JOB_ID:"IT_PROG"},{FIRST_NAME:1})
+ 3. Using the $and Operator
+ Find all documents where JOB_ID = SH_CLERK and DEPARTMENT_ID= 50
+ db.employees.find({$and : [{JOB_ID:"SH_CLERK"}, {DEPARTMENT_ID:50}]},
+ {FIRST_NAME:1, _id:0})
+ 4. Using the $or Operator
+ Find all names of all employees working in department_id = 100 or department_id = 50
+ db.employees.find({$or: [{DEPARTMENT_ID:100}, {DEPARTMENT_ID:90}]},
+ {FIRST_NAME:1, _id:0})
+ 5. Combining $and and $or operators
+ Find first names all employees who are either FI_MGR or FI_ACCOUNT and works in 
+department with ID 100
+ db.employees.find({$and :[{DEPARTMENT_ID:100}, 
+       {$or: [{JOB_ID:"FI_MGR"}, {JOB_ID:"FI_ACCOUNT"}]}
+ ]},{FIRST_NAME:1, _id:0})
+ 6. Using $in operators
+ Find first names of all employees who are either IT_PROG or SH_CLERK
+ db.employees.find({JOB_ID:{$in:["IT_PROG","SH_CLERK"]}},
+ {FIRST_NAME:1,_id:0});
+ 7. Using $exists operator - $exists operator is used to check if a field exists in a document.
+ Find all the documents in which there does not exist field DEPARTMENT_ID
+ db.employees.insertOne({"EMPLOYEE_ID" : 999, "FIRST_NAME" : "Tom", "LAST" : 
+"Cruise", "EMAIL" : "tomcruise", "PHONE_NUMBER" : "515.124.4382", "HIRE_DATE" : "30-
+SEP-05", "JOB_ID" : "FI_ACCOUNT", "SALARY" : 8700, "COMMISSION_PCT" : "-", 
+"MANAGER_ID" : 108})
+ db.employees.find({DEPARTMENT_ID: {$exists:false}},{FIRST_NAME:1})

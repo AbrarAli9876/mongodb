@@ -1,0 +1,20 @@
+(a) Demonstrate creation of different types of indexes on collection (unique, sparse, compound and 
+multikey indexes)
+ (b) Demonstrate optimization of queries using indexes. 
+Solution :
+ (a) 
+1. Import data from customers.json into mongodb database AD4Sem and collection customers
+ mongoimport -d AD4Sem -c customers --type csv --file "/home/acer/KSSEM/2024_25 02
+ Even Sem/MongoDb/customers.csv" --headerline
+ 2. Sort the collections “customers” based on Customer Id and note the time taken to sort.
+ db.customers.find({Customer Id: “28D7BcC82d076F2”},
+ {}).explain("executionStats").executionStats.executionTimeMillis
+ 3.  Create an index file on field “Customer Id”. Execute the above command and note the 
+significant difference in time taken to sort.
+ db.customers.createIndex({ "Customer Id": 1 }, { unique: true })
+ db.customers.find({Customer Id: “28D7BcC82d076F2”}
+ {}).explain("executionStats").executionStats.executionTimeMillis
+ 4. Creating sparse Index
+ db.customers.createIndex({ "Email": 1 }, { sparse: true }) 
+5. Creating compound index
+ db.customers.createIndex({ "First Name": 1 , "Last Name": -1 })

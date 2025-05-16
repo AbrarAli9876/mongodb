@@ -1,0 +1,14 @@
+1. Import employees.json file into collection by name employees.
+ mongoimport "employee.json" --jsonArray -d kssem_exam -c employees
+ 2. Calculate total salaries of department id 30 and each job_id.
+ db.employees.aggregate([ { $match: { DEPARTMENT_ID: 30 } }, { $group: { _id: 
+"$JOB_ID", TotalSalary: { $sum: "$SALARY" } } } ]) 
+3. Calculate total salaries of department 30 and department 50
+ db.employees.aggregate([ { $match: {$or:[ {DEPARTMENT_ID: 30}, 
+{DEPARTMENT_ID:50}]} }, { $group: { _id: null, totalSalary: { $sum: "$SALARY" } } } 
+]) 
+4. Sort transactions by SALARY in descending order and display only first name and salary.
+ db.employees.aggregate([ { $sort: {SALARY: -1 } },{$project:{FIRST_NAME:1, 
+SALARY:1,_id:0}} ])
+ 5. Display first names of employees working in DEPARTMENT_ID 30 after skipping 3 documents.
+ db.employees.find({DEPARTMENT_ID:30},{FIRST_NAME:1,_id:0}).skip(3
