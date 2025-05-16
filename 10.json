@@ -1,0 +1,16 @@
+ Develop an aggregation pipeline to illustrate Text search on Catalog data collection.
+ '''
+ 1. Create a MongoDB database by name productsDb
+ use productsDb
+ 2. Create a collection by name ‘products’ and insert following documents
+ db.products.insert({"productId":111,"description": "electronics product",  
+"name":"mobile",price:20000})
+ db.products.insert({"productId":112,"description": "cosmetics product", "name":"talc",price:500})
+ db.products.insert({"productId":113,"description": "textiles product", "name":"Jeans",price:2000})
+ db.products.insert({"productId":114,"description": "Electronics product", "name":"laptop", 
+price:70000})
+ 3. Create index for text search on category.
+ db.products.createIndex({ "description": "text" }) 
+4. Develop an aggregation pipeline to illustrate Text search on products collection.
+ db.products.aggregate([ { $match: { $text: { $search: "electronics" } } }, { $project: { _id: 0, score: 
+{ $meta: "textScore" }, name:1, description: 1 } }, { $sort: { name:1 } } ])
